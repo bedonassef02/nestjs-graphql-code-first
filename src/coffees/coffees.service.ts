@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Coffee } from './entities/coffee.entity';
 import { Repository } from 'typeorm';
 import { UpdateCoffeeInput } from './dto/update-coffee.input';
-import { Falvor } from './entities/falvor.entity';
+import { Flavor } from './entities/flavor.entity';
 import { PubSub } from 'graphql-subscriptions';
 
 @Injectable()
@@ -12,8 +12,8 @@ export class CoffeesService {
   constructor(
     @InjectRepository(Coffee)
     private readonly coffeeRepository: Repository<Coffee>,
-    @InjectRepository(Falvor)
-    private readonly falvorRepository: Repository<Falvor>,
+    @InjectRepository(Flavor)
+    private readonly falvorRepository: Repository<Flavor>,
     private readonly pubSub: PubSub,
   ) {}
   findAll() {
@@ -67,7 +67,7 @@ export class CoffeesService {
     return this.coffeeRepository.remove(coffee);
   }
 
-  async preloadFlavorByName(name: string): Promise<Falvor> {
+  async preloadFlavorByName(name: string): Promise<Flavor> {
     const falvor = await this.falvorRepository.findOne({ where: { name } });
     if (falvor) {
       return falvor;

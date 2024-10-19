@@ -7,7 +7,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Falvor } from './falvor.entity';
+import { Flavor } from './flavor.entity';
 import { Drink } from 'src/common/interfaces/drink.interface';
 import { CoffeeType } from 'src/common/enums/coffee-type.enum';
 import { loggerMiddleware } from 'src/common/middlewares/logger.middleware';
@@ -24,8 +24,8 @@ export class Coffee implements Drink {
   @Column()
   brand: string;
   @JoinTable()
-  @ManyToMany((type) => Falvor, (falvor) => falvor.coffees, { cascade: true })
-  flavors?: Falvor[];
+  @ManyToMany((type) => Flavor, (flavor) => flavor.coffees, { cascade: true })
+  flavors?: Flavor[];
   @CreateDateColumn()
   createdAt?: Date;
 

@@ -4,7 +4,7 @@ import { Coffee } from './coffee.entity';
 
 @Entity()
 @ObjectType()
-export class Falvor {
+export class Flavor {
   @PrimaryGeneratedColumn()
   @Field(() => ID)
   id: number;
