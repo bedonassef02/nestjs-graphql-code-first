@@ -2,12 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Falvor {
+  id: ID!
+  name: String!
+  coffees: [Coffee!]!
+}
+
 type Coffee {
   """Unique identifier"""
   id: ID!
   name: String!
   brand: String!
-  flavors: [String!]!
+  flavors: [Falvor!]
 }
 
 type Query {
