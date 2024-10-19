@@ -5,6 +5,8 @@ import { join } from 'path';
 import { CoffeesModule } from './coffees/coffees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DateScalar } from './common/scalers/date.scalar';
+import { Tea } from './teas/entities/tea.entity';
+import { DrinksResolver } from './drinks/drinks.resolver';
 
 @Module({
   imports: [
@@ -21,10 +23,12 @@ import { DateScalar } from './common/scalers/date.scalar';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      // buildSchemaOptions: { dateScalarMode: 'timestamp' },
+      buildSchemaOptions: { 
+        // dateScalarMode: 'timestamp', 
+        orphanedTypes: [Tea] },
     }),
     CoffeesModule,
   ],
-  providers: [DateScalar],
+  providers: [DateScalar, DrinksResolver],
 })
 export class AppModule {}
