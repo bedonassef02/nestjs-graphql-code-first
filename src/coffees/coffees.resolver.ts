@@ -3,6 +3,7 @@ import { Coffee } from './entities/coffee.entity';
 import { ParseIntPipe } from '@nestjs/common';
 import { CreateCoffeeInput } from './dto/create-coffee.input';
 import { CoffeesService } from './coffees.service';
+import { UpdateCoffeeInput } from './dto/update-coffee.input';
 
 @Resolver()
 export class CoffeesResolver {
@@ -25,5 +26,18 @@ export class CoffeesResolver {
     @Args('createCoffeInput') createCoffeInput: CreateCoffeeInput,
   ): Promise<Coffee> {
     return this.coffeesService.create(createCoffeInput);
+  }
+
+  @Mutation(() => Coffee, { name: 'updateCoffee' })
+  async update(
+    @Args('id', ParseIntPipe) id: number,
+    @Args('updateCoffeInput') updateCoffeInput: UpdateCoffeeInput,
+  ) {
+    return this.coffeesService.update(id, updateCoffeInput);
+  }
+
+  @Mutation(() => Coffee, { name: 'removeCoffee' })
+  async remove(@Args('id', ParseIntPipe) id: number) {
+    return this.coffeesService.remove(id);
   }
 }
