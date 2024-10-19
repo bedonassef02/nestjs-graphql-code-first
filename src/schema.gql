@@ -2,11 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""Drink Interface"""
-interface Drink {
-  name: String!
-}
-
 type Falvor {
   id: ID!
   name: String!
@@ -23,6 +18,11 @@ type Coffee implements Drink {
   createdAt: Date
 }
 
+"""Drink Interface"""
+interface Drink {
+  name: String!
+}
+
 type Tea implements Drink {
   name: String!
 }
@@ -31,10 +31,12 @@ type Tea implements Drink {
 scalar Date
 
 type Query {
-  drinks: [Drink!]!
+  drinks: [DrinkResult!]!
   coffees: [Coffee!]!
   coffee(id: ID!): Coffee
 }
+
+union DrinkResult = Coffee | Tea
 
 type Mutation {
   createCoffee(createCoffeInput: CreateCoffeeInput!): Coffee

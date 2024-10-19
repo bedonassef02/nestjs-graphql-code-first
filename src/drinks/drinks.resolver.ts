@@ -1,12 +1,13 @@
 import { Query, Resolver } from '@nestjs/graphql';
 import { Coffee } from 'src/coffees/entities/coffee.entity';
 import { Drink } from 'src/common/interfaces/drink.interface';
+import { DrinkResultUnion } from 'src/common/unions/drink-result.union';
 import { Tea } from 'src/teas/entities/tea.entity';
 
 @Resolver()
 export class DrinksResolver {
-  @Query(() => [Drink], { name: 'drinks' })
-  findAll(): Drink[] {
+  @Query(() => [DrinkResultUnion], { name: 'drinks' })
+  async findAll(): Promise<typeof DrinkResultUnion[]> {
     const coffee = new Coffee();
     coffee.id = 1;
     coffee.name = 'Cappuccino';
@@ -15,6 +16,6 @@ export class DrinksResolver {
     const tea = new Tea();
     tea.name = 'Green Tea';
 
-    return [coffee, tea];
+    return await Promise.resolve([coffee, tea]);
   }
 }
