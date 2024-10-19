@@ -10,6 +10,7 @@ import {
 import { Falvor } from './falvor.entity';
 import { Drink } from 'src/common/interfaces/drink.interface';
 import { CoffeeType } from 'src/common/enums/coffee-type.enum';
+import { loggerMiddleware } from 'src/common/middlewares/logger.middleware';
 
 @Entity()
 @ObjectType({ implements: () => Drink })
@@ -17,6 +18,7 @@ export class Coffee implements Drink {
   @PrimaryGeneratedColumn()
   @Field(() => ID, { description: 'Unique identifier' })
   id: number;
+  @Field({ middleware: [loggerMiddleware] })
   @Column()
   name: string;
   @Column()
